@@ -1,0 +1,9 @@
+[submodule "infinity"]
+	path = infinity
+	url = git@github.com:Mickael-Lokhate/infinity.git
+[submodule "api_infinity"]
+	path = api_infinity
+	url = git@github.com:Mickael-Lokhate/api_infinity.git
+[submodule "pong_backend"]
+	path = pong_backend
+	url = git@github.com:voidboy/pong_backend.git

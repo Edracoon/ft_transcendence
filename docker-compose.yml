@@ -1,0 +1,63 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:14
+    container_name: db
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - infinity_network
+    restart: always
+
+  api_infinity:
+    depends_on:
+      - db
+    build:
+      context: ${API_INF_DIR}
+    image: api_infinity
+    container_name: api_infinity
+    ports:
+      - ${API_INF_PORT}:3000
+    networks:
+      - infinity_network
+    restart: always
+
+  infinity:
+    depends_on:
+      - api_infinity
+    build:
+      context: ${INF_DIR}
+    image: infinity
+    container_name: infinity
+    ports:
+      - ${INF_PORT}:4200
+    networks:
+      - infinity_network
+    restart: always
+
+  adminer:
+    image: adminer:4
+    container_name: adminer
+    ports:
+      - ${ADMINER_PORT}:8080
+    restart: always
+    networks:
+      - infinity_network
+
+volumes:
+  pgdata:
+    name: "pgdata"
+    driver: local
+    driver_opts:
+      type: "none"
+      o: "bind"
+      device: "${DB_DATA}"
+
+networks:
+  infinity_network:
+    name: "infinity_network"

@@ -25,6 +25,7 @@ services:
     container_name: api_infinity
     ports:
       - ${API_INF_PORT}:3000
+      - ${API_GATEWAY}:3002
     volumes:
       - upload:/api_infinity/upload
     networks:

@@ -3,7 +3,6 @@
 launchctl stop $(launchctl list | awk '/com.docker.docker/ {print $3}') 2> /dev/null
 rm -rf ~/.docker
 rm -rf ~/Library/Containers
-mkdir -p ~/goinfre/Containers
 ln -sf ~/goinfre/Containers ~/Library/
 
 if [ ! -d "/Applications/Docker.app" ] && [ ! -d "~/Applications/Docker.app" ]; then

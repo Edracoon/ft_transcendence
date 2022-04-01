@@ -1,0 +1,20 @@
+.pong {
+  margin: 0 auto;
+  width: 75%;
+  height: 35%;
+  max-width: 650px;
+  max-height: 480px;
+}
+
+canvas {
+  width: 100%;
+  background-color: black;
+}
+
+@media screen and (max-width: 800px) {
+  .pong {
+    margin: 0 auto;
+    width: 95%;
+    height: 35%;
+  }
+}

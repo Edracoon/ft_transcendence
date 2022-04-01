@@ -1,0 +1,33 @@
+<div class="mt-2 mb-2 d-flex flex-row gap-2 justify-content-center flex-wrap">
+  <button
+    type="button"
+    class="btn btn-dark d-flex flex-column align-items-center"
+    routerLink="/game/ranked"
+  >
+    <fa-icon [icon]="playIcon" class="icon" style="color: goldenrod"></fa-icon
+    >Play Ranked
+  </button>
+  <button
+    type="button"
+    class="btn btn-dark d-flex flex-column align-items-center"
+    routerLink="/game/solo"
+  >
+    <fa-icon [icon]="playSoloIcon" class="icon" style="color: silver"></fa-icon>
+    Play Solo
+  </button>
+  <button
+    type="button"
+    class="btn btn-dark d-flex flex-column align-items-center"
+    routerLink="/game/duel"
+  >
+    <fa-icon [icon]="playDualIcon" class="icon" style="color: #cd7f32"></fa-icon
+    >Challenge a user
+  </button>
+  <button
+    type="button"
+    class="btn btn-dark d-flex flex-column align-items-center"
+    routerLink="/chat"
+  >
+    <i class="bi bi-chat-dots-fill icon"></i>Chat
+  </button>
+</div>

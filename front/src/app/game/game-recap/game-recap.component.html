@@ -1,0 +1,89 @@
+<div
+  *ngIf="leftPlayer && rightPlayer"
+  class="micka d-flex flex-column justify-content-between"
+>
+  <div class="d-flex flex-row gap-5 justify-content-center"></div>
+  <div class="d-flex flex-row justify-content-between m-2">
+    <p *ngIf="gameEndInfo.Winner.side === 'left'" style="color: forestgreen">
+      {{ leftPlayer.nickname }}
+    </p>
+    <p
+      *ngIf="gameEndInfo.Winner.side === 'right'"
+      style="color: rgb(218, 54, 54)"
+    >
+      {{ leftPlayer.nickname }}
+    </p>
+    <p *ngIf="gameEndInfo.Winner.side === 'left'">
+      {{ gameEndInfo.Winner.score }} - {{ gameEndInfo.Looser.score }}
+    </p>
+    <p *ngIf="gameEndInfo.Winner.side === 'right'">
+      {{ gameEndInfo.Looser.score }} - {{ gameEndInfo.Winner.score }}
+    </p>
+    <p *ngIf="gameEndInfo.Winner.side === 'right'" style="color: forestgreen">
+      {{ rightPlayer.nickname }}
+    </p>
+    <p
+      *ngIf="gameEndInfo.Winner.side === 'left'"
+      style="color: rgb(218, 54, 54)"
+    >
+      {{ rightPlayer.nickname }}
+    </p>
+  </div>
+  <div
+    class="m-3"
+    class="d-flex flex-row justify-content-between img-container"
+  >
+    <img
+      [src]="leftPlayer.avatar"
+      width="20%"
+      height="20%"
+      class="img-thumbnail"
+      alt="..."
+    />
+    <img
+      [src]="rightPlayer.avatar"
+      width="20%"
+      height="20%"
+      class="img-thumbnail"
+      alt="..."
+    />
+  </div>
+  <div class="d-flex flex-row justify-content-between">
+    <p *ngIf="gameEndInfo.Winner.side === 'left'">
+      {{ leftPlayer.ladder.points }}
+    </p>
+    <p *ngIf="gameEndInfo.Winner.side === 'right'">
+      {{ leftPlayer.ladder.points }}
+    </p>
+    <p *ngIf="gameEndInfo.Winner.side === 'left'">
+      {{ rightPlayer.ladder.points }}
+    </p>
+    <p *ngIf="gameEndInfo.Winner.side === 'right'">
+      {{ rightPlayer.ladder.points }}
+    </p>
+  </div>
+  <button
+    *ngIf="previousState !== 'LOOKING' && gameMode !== 'duel'"
+    type="button"
+    class="btn btn-secondary btn-lg"
+    [routerLink]="['/game/ranked']"
+  >
+    New Ranked !
+  </button>
+  <button
+    *ngIf="previousState !== 'LOOKING' && gameMode === 'duel'"
+    type="button"
+    class="btn btn-secondary btn-lg"
+    [routerLink]="['/game/duel']"
+  >
+    New Duel !
+  </button>
+  <button
+    *ngIf="previousState === 'LOOKING'"
+    type="button"
+    class="btn btn-secondary btn-lg"
+    [routerLink]="['/watch']"
+  >
+    Return to watch !
+  </button>
+</div>

@@ -1,0 +1,90 @@
+<app-nav [title]="'New Channel'" [static]="true"></app-nav>
+<div class="container mt-4">
+  <div class="alert alert-danger" *ngIf="error">{{ error }}</div>
+  <form
+    class="d-flex flex-column justify-content-center align-items-center gap-3"
+    [formGroup]="formGroup"
+  >
+    <div class="input-group d-flex flex-column">
+      <label for="">Name <span class="required">*</span></label>
+      <div class="d-flex flex-row">
+        <div class="input-group-prepend">
+          <span class="input-group-text">#</span>
+        </div>
+        <input
+          name="name"
+          id="name"
+          type="text"
+          class="form-control"
+          aria-label="Name"
+          placeholder="Channel's name"
+          formControlName="name"
+          required
+        />
+      </div>
+    </div>
+    <div class="input-group d-flex flex-column">
+      <label for="">Topic</label>
+      <div class="d-flex flex-column">
+        <input
+          name="topic"
+          id="topic"
+          type="text"
+          class="form-control"
+          aria-label="Topic"
+          formControlName="topic"
+          placeholder="Channel's Topic"
+        />
+      </div>
+    </div>
+    <div
+      class="
+        d-flex
+        flex-row
+        input-group
+        gap-3
+        align-items-center
+        justify-content-center
+      "
+    >
+      <label>Public</label>
+      <label class="switch" id="authSwitch">
+        <input
+          type="checkbox"
+          name="scope"
+          class="form-control"
+          id="scope"
+          formControlName="scope"
+        />
+        <span class="slider round"></span>
+      </label>
+      <label>Private</label>
+    </div>
+    <div
+      *ngIf="!formGroup.get('scope')?.value"
+      class="input-group d-flex flex-column"
+    >
+      <label for="">Password for protected channel</label>
+      <div class="d-flex flex-row">
+        <div class="input-group-prepend">
+          <span class="input-group-text">🔒</span>
+        </div>
+        <input
+          type="password"
+          autocomplete="new-password"
+          class="form-control"
+          name="password"
+          id="password"
+          formControlName="password"
+          placeholder="Channel's password"
+        />
+      </div>
+    </div>
+    <app-invitation-channel
+      [fixed]="false"
+      (searchEvent)="onSearchEvent($event)"
+      [selectedUsers]="selectedUsers"
+    ></app-invitation-channel>
+    <button class="btn btn-success" (click)="onCreate()">Create</button>
+  </form>
+</div>

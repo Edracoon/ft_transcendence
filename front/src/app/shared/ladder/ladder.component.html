@@ -1,0 +1,62 @@
+<div class="d-flex mt-3">
+  <hr style="width: 20%; margin: 1em auto" />
+  <h2>Global Ladder</h2>
+  <hr style="width: 20%; margin: 1em auto" />
+</div>
+<div class="table-responsive-md container-fluid table-container mt-2">
+  <table
+    *ngIf="ladders"
+    class="table table-striped table-light table-hover table-borderless"
+  >
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">User</th>
+        <th scope="col">Position</th>
+        <th scope="col">Points</th>
+        <th scope="col">Total Victories</th>
+        <th scope="col">Total Defeats</th>
+        <th scope="col">Total Score Victories</th>
+        <th scope="col">Total Score Defeats</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let ladder of ladders"
+        class="{{ getClassIfCurrentUser(ladder.id) }}"
+      >
+        <th scope="row">
+          <div class="d-flex flex-row align-items-center gap-2">
+            <i
+              *ngIf="ladder.position == 1"
+              class="bi bi-award"
+              style="font-size: 1.5em; color: goldenrod"
+            ></i>
+            <i
+              *ngIf="ladder.position == 2"
+              class="bi bi-award"
+              style="font-size: 1.5em; color: silver"
+            ></i>
+            <i
+              *ngIf="ladder.position == 3"
+              class="bi bi-award"
+              style="font-size: 1.5em; color: #cd7f32"
+            ></i>
+            <app-user-badge
+              [user]="users.find(_findUserInArray(ladder.id))!"
+              [option]="{ size: sizeBadge, nickname: true }"
+              (badgeEvent)="onBadgeClick($event)"
+            ></app-user-badge>
+          </div>
+        </th>
+        <td>#{{ ladder.position }}</td>
+        <td>{{ ladder.points }}</td>
+        <td>{{ ladder.victories }}</td>
+        <td>{{ ladder.defeats }}</td>
+        <td>{{ ladder.score_victories }}</td>
+        <td>{{ ladder.score_defeats }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-loading *ngIf="!ladders" [information]="'Loading ladder...'"></app-loading>

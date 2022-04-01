@@ -1,0 +1,64 @@
+$len: 300px;
+$time: 1500ms;
+
+.loading {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: -100;
+  svg {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+}
+
+.infos {
+  // width: 12.6rem;
+  max-width: 50rem;
+  width: 50%;
+  text-align: center;
+  height: 2rem;
+  position: absolute;
+  top: 8rem;
+  bottom: 0;
+  left: 25%;
+  right: 25%;
+  margin: auto;
+  font-size: 1.5em;
+}
+
+#infinity-outline {
+  fill: transparent;
+  stroke-width: 4;
+  stroke: #0b8ece;
+  stroke-dasharray: $len * 0.01, $len;
+  stroke-dashoffset: 0;
+  animation: anim $time linear infinite;
+}
+#infinity-bg {
+  fill: transparent;
+  stroke-width: 4;
+  stroke: #424242;
+  opacity: 0.2;
+}
+@keyframes anim {
+  12.5% {
+    stroke-dasharray: $len * 0.14, $len;
+    stroke-dashoffset: -$len * 0.11;
+  }
+  43.75% {
+    stroke-dasharray: $len * 0.35, $len;
+    stroke-dashoffset: -$len * 0.35;
+  }
+  100% {
+    stroke-dasharray: $len * 0.01, $len;
+    stroke-dashoffset: -$len * 0.99;
+  }
+}

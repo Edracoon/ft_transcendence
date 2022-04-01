@@ -1,0 +1,22 @@
+<div class="d-inline-block p-0 m-1">
+  <input
+    #dateTimeInput
+    type="datetime-local"
+    id="date-time"
+    name="date-time"
+    class="m-0 align-middle"
+    [(ngModel)]="currentValue"
+    [min]="getMin()"
+    (change)="validate()"
+  />
+  <button
+    #buttonAction
+    class="btn btn-dark m-0 align-middle rounded-0 rounded-end"
+    type="button"
+    id="button-action"
+    (click)="onClickOk()"
+    disabled="true"
+  >
+    {{ type == NotifType.BAN ? "Ban" : type == NotifType.MUTE ? "Mute" : "" }}
+  </button>
+</div>

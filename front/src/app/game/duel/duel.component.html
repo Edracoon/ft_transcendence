@@ -1,0 +1,139 @@
+<!-- <app-loading *ngIf="!user"></app-loading> -->
+
+<div *ngIf="!Waiting && user && !selectedUser" class="d-flex flex-column">
+  <div class="d-flex mt-3">
+    <hr style="width: 20%; margin: 1em auto" />
+    <h1 class="text-center">Choose an opponent</h1>
+    <hr style="width: 20%; margin: 1em auto" />
+  </div>
+  <app-search-user
+    class="searchbar"
+    (searchEvent)="onSearchEvent($event)"
+  ></app-search-user>
+  <span class="searchbar border border-dark rounded">
+    <div *ngIf="user" class="accordion-body">
+      <p class="text-center">Friends ({{ lengthFriends }})</p>
+      <div class="header" *ngFor="let friend of user.friends">
+        <app-user-badge
+          [user]="friend"
+          (badgeEvent)="onBadgeClick($event)"
+        ></app-user-badge>
+      </div>
+    </div>
+  </span>
+</div>
+
+<div
+  *ngIf="!Waiting && selectedUser"
+  class="d-flex flex-column align-items-center"
+>
+  <div class="d-flex mt-3">
+    <hr style="width: 20%; margin: 1em auto" />
+    <h1 class="text-center">Select Customisations</h1>
+    <hr style="width: 20%; margin: 1em auto" />
+  </div>
+
+  <form [formGroup]="customisationForm" (ngSubmit)="onSubmit()">
+    <h5 class="m-3 text-center">Ball speed</h5>
+    <input
+      type="range"
+      class="form-range"
+      style="width: 20rem"
+      min="0.1"
+      max="2"
+      step="0.1"
+      value="1"
+      formControlName="ballSpeed"
+    />
+    <h5 class="m-3 text-center">Ball color</h5>
+    <div class="m-2">
+      <input
+        type="color"
+        class="form-control form-control-color"
+        formControlName="ballColor"
+        title="color"
+        style="margin: auto"
+      />
+    </div>
+    <div class="justify-content-around m-2">
+      <h5 class="m-3 text-center">Playing against :</h5>
+    </div>
+    <div class="d-flex justify-content-around">
+      <span
+        class="border rounded padding-right py-2"
+        style="padding-right: 5px"
+      >
+        <app-user-badge
+          [user]="selectedUser"
+          [option]="{ size: 30, nickname: true }"
+        ></app-user-badge>
+      </span>
+    </div>
+    <div class="justify-content-center text-center m-3">
+      <button
+        type="submit"
+        class="play-button btn btn-success btn-lg btn-block"
+        style="width: 100%"
+      >
+        Play
+      </button>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="Waiting" class="d-flex flex-column justify-content-between">
+  <div class="loadingCustom">
+    <app-loading></app-loading>
+  </div>
+  <div class="middleMan">
+    <h6 style="text-align: center">
+      Waiting for {{ selectedUser!.nickname }} to accept the duel...
+    </h6>
+    <button
+      type="button"
+      class="btn-cancel btn btn-outline-danger micka"
+      (click)="onClickCancelWaiting()"
+    >
+      Cancel Duel !
+    </button>
+  </div>
+</div>
+
+<div
+  *ngIf="gameService.needRefresh"
+  class="
+    d-flex
+    flex-row
+    justify-content-center
+    align-items-center
+    success-update-alert
+  "
+>
+  <div class="alert alert-warning">
+    <h5>
+      You're already logged on, log out here or on the other(s) tab(s) and click
+      <button
+        (click)="gameService.connectServiceRoom()"
+        title="Redirect to home"
+      >
+        here
+      </button>
+      to refresh the window !
+    </h5>
+  </div>
+</div>
+
+<div
+  *ngIf="gameService.duelExpired"
+  class="
+    d-flex
+    flex-row
+    justify-content-center
+    align-items-center
+    success-update-alert
+  "
+>
+  <div class="alert alert-warning">
+    <h3>Duel is expired !</h3>
+  </div>
+</div>

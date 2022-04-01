@@ -1,0 +1,43 @@
+<app-nav [title]="'Channels'" [static]="true"></app-nav>
+<div class="container-fluid mt-0">
+  <div class="content d-flex flex-column gap-2 mt-3 container">
+    <div class="form container m-2">
+      <form class="d-flex flex-row justify-content-center gap-2">
+        <input
+          type="search"
+          class="form-control"
+          (input)="onSearch($event)"
+          placeholder="Search a channel..."
+          aria-label="Search"
+          id="search"
+        />
+        <button class="btn btn-dark" (click)="onAdd()">
+          <fa-icon [icon]="faPlus"></fa-icon>
+        </button>
+      </form>
+    </div>
+
+    <div class="channels container" *ngIf="rooms && rooms.length">
+      <div *ngFor="let channel of displayRooms">
+        <app-channel
+          *ngIf="
+            channel.type == 'CHANNEL' &&
+            (channel.config!.scope != 'PRIVATE' ||
+              (channel.config!.scope == 'PRIVATE' && channel.isJoin))
+          "
+          [room]="channel"
+        ></app-channel>
+      </div>
+    </div>
+    <app-loading
+      [ngClass]="{ 'd-none': hideLoading }"
+      [information]="'Loading channels...'"
+    ></app-loading>
+    <p
+      [ngClass]="{ 'd-none': hideNoChannels }"
+      class="alert alert-danger text-center"
+    >
+      Sorry, no corresponding channels
+    </p>
+  </div>
+</div>

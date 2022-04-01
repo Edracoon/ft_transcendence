@@ -1,0 +1,197 @@
+<!-- Button trigger modal -->
+<button
+  *ngIf="room?.usersRoom"
+  type="button"
+  class="btn border border-dark p-2 pb-0 pt-2 m-2"
+  data-bs-toggle="modal"
+  data-bs-target="#exampleModal"
+  (click)="onOpenModal()"
+>
+  <h5>
+    {{ getIsJoin(room!.usersRoom!).length }}
+    <i class="bi bi-people-fill h4"></i>
+  </h5>
+</button>
+<!-- Modal -->
+<div
+  *ngIf="room?.usersRoom"
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header p-2">
+        <h5 class="modal-title" id="exampleModalLabel">Users</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div
+          class="accordion"
+          id="accordionExample"
+          *ngIf="room?.usersRoom?.length"
+        >
+          <div
+            class="accordion-item"
+            *ngFor="let userRoom of room!.usersRoom"
+            [ngClass]="{
+              accUser: myUserRoom.user.id == userRoom.user.id,
+              isjoin: !userRoom.isJoin
+            }"
+          >
+            <h2
+              class="accordion-header"
+              id="{{ 'heading' + userRoom.user.id }}"
+              *ngIf="
+                !(!isBan(userRoom) && !isMute(userRoom) && !userRoom.isJoin)
+              "
+            >
+              <button
+                class="accordion-button collapsed p-1"
+                type="button"
+                data-bs-toggle="collapse"
+                [attr.data-bs-target]="'#collapse' + userRoom.user.id"
+                aria-expanded="false"
+                [attr.aria-controls]="'collapse' + userRoom.user.id"
+              >
+                <app-user-badge [user]="userRoom.user"></app-user-badge>
+                <span
+                  class="badge bg-secondary rounded-pill"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  title="{{ userRoom.role }}"
+                  >{{
+                    userRoom.role != RoomRole.USER ? userRoom.role[0] : ""
+                  }}</span
+                >
+                <i
+                  class="bi bi-mic-mute-fill userIcon"
+                  *ngIf="isMute(userRoom)"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  title="mute until {{
+                    userRoom.mute | date: 'MMM d, y, h:mm a'
+                  }}"
+                ></i>
+                <fa-icon
+                  class="userIcon"
+                  [icon]="faBan"
+                  *ngIf="isBan(userRoom)"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  title="ban until {{
+                    userRoom.ban | date: 'MMM d, y, h:mm a'
+                  }}"
+                ></fa-icon>
+                <fa-icon
+                  class="userIcon"
+                  [icon]="faLeave"
+                  *ngIf="!userRoom.isJoin"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  title="left the channel"
+                ></fa-icon>
+              </button>
+            </h2>
+            <div
+              *ngIf="myUserRoom.user.id != userRoom.user.id"
+              id="{{ 'collapse' + userRoom.user.id }}"
+              class="accordion-collapse collapse"
+              [attr.aria-labelledby]="'heading' + userRoom.user.id"
+              data-bs-parent="#accordionExample"
+            >
+              <div class="accordion-body text-center">
+                <button
+                  routerLink="/user/show/{{ userRoom.user.id }}"
+                  class="btn btn-dark m-1"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="bottom"
+                  title="Show profile"
+                  data-bs-dismiss="modal"
+                >
+                  <i class="bi bi-person-fill"></i>
+                </button>
+                <app-block-action
+                  [user_id]="userRoom.user.id"
+                ></app-block-action>
+                <app-dm-action
+                  [user_id]="userRoom.user.id"
+                  data-bs-dismiss="modal"
+                ></app-dm-action>
+                <app-duel-action [user_id]="userRoom.user.id"></app-duel-action>
+                <button
+                  class="btn btn-dark m-1"
+                  *ngIf="
+                    myUserRoom.role == RoomRole.OWNER &&
+                    !isBan(userRoom) &&
+                    !isMute(userRoom)
+                  "
+                  (click)="toggleAdmin($event, userRoom)"
+                >
+                  {{
+                    userRoom.role == RoomRole.ADMIN ? "del admin" : "add admin"
+                  }}
+                </button>
+                <app-date-time-action
+                  *ngIf="
+                    !isMute(userRoom) &&
+                    myUserRoom.role != RoomRole.USER &&
+                    userRoom.role == RoomRole.USER &&
+                    !isBan(userRoom)
+                  "
+                  [idEvent]="userRoom.id!"
+                  [type]="NotifType.MUTE"
+                  (dateTimeEvent)="onDateTimeEvent($event)"
+                ></app-date-time-action>
+                <button
+                  #unmuteButton
+                  *ngIf="
+                    isMute(userRoom) &&
+                    myUserRoom.role != RoomRole.USER &&
+                    userRoom.role == RoomRole.USER &&
+                    !isBan(userRoom)
+                  "
+                  class="btn btn-dark m-1"
+                  (click)="
+                    onUnBanMute(unmuteButton, userRoom, NotifType.UNMUTE)
+                  "
+                >
+                  Unmute
+                </button>
+                <app-date-time-action
+                  *ngIf="
+                    !isBan(userRoom) &&
+                    myUserRoom.role != RoomRole.USER &&
+                    userRoom.role == RoomRole.USER
+                  "
+                  [idEvent]="userRoom.id!"
+                  [type]="NotifType.BAN"
+                  (dateTimeEvent)="onDateTimeEvent($event)"
+                ></app-date-time-action>
+                <button
+                  #unbanButton
+                  *ngIf="
+                    isBan(userRoom) &&
+                    myUserRoom.role != RoomRole.USER &&
+                    userRoom.role == RoomRole.USER
+                  "
+                  class="btn btn-dark m-1"
+                  (click)="onUnBanMute(unbanButton, userRoom, NotifType.UNBAN)"
+                >
+                  Unban
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

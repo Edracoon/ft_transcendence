@@ -1,0 +1,97 @@
+<div *ngIf="!play" class="orel">
+  <div class="width100">
+    <div class="d-flex flex-row justify-content-around">
+      <hr style="width: 20%; margin: auto" />
+      <h5 class="mt-3 mx-3 p-1">Custom background</h5>
+      <hr style="width: 20%; margin: auto" />
+    </div>
+  </div>
+  <div class="slide">
+    <img
+      *ngFor="let background of canvasBackground"
+      #self
+      class="m-3"
+      (click)="pickBackground(self)"
+      src="{{ background }}"
+    />
+  </div>
+  <form class="orel" [formGroup]="customisationForm" (ngSubmit)="onSubmit()">
+    <div class="width100">
+      <div class="d-flex flex-row justify-content-around">
+        <!-- <hr style="width: 20%; margin: auto" /> -->
+        <h5 class="mt-3 mx-3">Ball color</h5>
+        <!-- <hr style="width: 20%; margin: auto" /> -->
+      </div>
+    </div>
+    <input
+      type="color"
+      class="form-control form-control-color m-3"
+      formControlName="ballColor"
+      title="color"
+    />
+    <div class="width100">
+      <div class="d-flex flex-row justify-content-around">
+        <!-- <hr style="width: 20%; margin: auto" /> -->
+        <h5 class="mt-3 mx-3 speed">...Ball speed</h5>
+        <!-- <hr style="width: 20%; margin: auto" /> -->
+      </div>
+    </div>
+    <input
+      type="range"
+      class="form-range m-3"
+      min="0.1"
+      max="2"
+      step="0.1"
+      value="1"
+      formControlName="ballSpeed"
+    />
+    <div class="width100">
+      <div class="d-flex flex-row justify-content-around">
+        <!-- <hr style="width: 20%; margin: auto" /> -->
+        <h5 class="mt-3 mx-3">Bot difficulty</h5>
+        <!-- <hr style="width: 20%; margin: auto" /> -->
+      </div>
+    </div>
+    <div class="m-3">
+      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-secondary">
+          <input
+            type="radio"
+            value="EASY"
+            id="option1"
+            autocomplete="off"
+            formControlName="botDifficulty"
+          />
+          Easy
+        </label>
+        <label class="btn btn-secondary">
+          <input
+            type="radio"
+            value="MEDIUM"
+            id="option2"
+            autocomplete="off"
+            formControlName="botDifficulty"
+          />
+          Medium
+        </label>
+        <label class="btn btn-secondary">
+          <input
+            type="radio"
+            value="HARD"
+            id="option3"
+            autocomplete="off"
+            formControlName="botDifficulty"
+          />
+          Hard
+        </label>
+      </div>
+    </div>
+    <button class="btn btn-dark m-3" type="submit">Start Game !</button>
+  </form>
+</div>
+<div *ngIf="play" class="pong">
+  <canvas #pong (mousemove)="move($event)" width="650" height="480"
+    >pong</canvas
+  >
+  <app-players-solo></app-players-solo>
+</div>

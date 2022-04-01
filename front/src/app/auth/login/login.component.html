@@ -1,0 +1,51 @@
+<div class="login-container container">
+  <app-loading
+    *ngIf="loading"
+    [information]="'Connection to 42 API...'"
+  ></app-loading>
+  <div *ngIf="!loading" class="row align-items-center justify-content-center">
+    <video autoplay muted loop playsinline>
+      <source src="assets/images/pong.mp4" type="video/mp4" />
+      Can't display our animation on your navigator.
+    </video>
+    <div class="d-flex justify-content-around m-2">
+      <button
+        type="button"
+        class="mt-3 mb-3 btn-lg btn-dark"
+        (click)="onLogin()"
+      >
+        Sign in with 42
+      </button>
+    </div>
+
+    <h2>About Infinity</h2>
+    <hr />
+    <div class="row">
+      <blockquote class="about blockquote text-justify font-italic">
+        <p class="lead">
+          This game is a remaster of the 1972 pong, the original concept of Pong
+          is a two-dimensional sports game that simulate table tennis. Two
+          players controls an in-game white paddle on a black background, while
+          a ball is represented by a small white square, moves through the
+          screen and bounces off the top and bottom edges. The player moves his
+          paddle by sliding it vertically using mouse or pad. Players use the
+          paddle to hit a ball back and forth. The speed of the ball increases
+          at every hit of a player. The ball's rebound angle changes depending
+          where it hits the paddle. The goal for the players :
+          <strong>be the first to reach 11 points</strong>. <br />
+          In addition, we have a ranking system accompanied by a matchmaking to
+          delight our most competitive players.
+        </p>
+        <p class="lead">
+          Infinity offers the opportunity to communicate with all our users
+          thanks to a chat. You'll be able to create differents channels in
+          public, private or protected by a password. Also, you have access to
+          all public and protected channels created by all the users and can
+          join them (with the correct password if needed). You have the
+          possibility to contact other users with a direct message where only
+          both of you have access.
+        </p>
+      </blockquote>
+    </div>
+  </div>
+</div>

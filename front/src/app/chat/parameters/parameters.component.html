@@ -1,0 +1,231 @@
+<button
+  type="button"
+  class="btn"
+  data-bs-toggle="modal"
+  data-bs-target="#modalParams"
+  (click)="onOpenModal()"
+>
+  <fa-icon class="h4 p-0 m-1" [icon]="faGear"></fa-icon>
+</button>
+
+<div
+  class="modal fade"
+  id="modalParams"
+  tabindex="-1"
+  aria-labelledby="modalParams"
+  aria-hidden="true"
+  *ngIf="userRoom?.role == 'OWNER'"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Parameters</h4>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body d-flex flex-column justify-content-between gap-3">
+        <div class="d-flex flex-row justify-content-between align-items-center">
+          <h5>Invite Users</h5>
+          <app-invitation-channel
+            (searchEvent)="onSearchEvent($event)"
+            [selectedUsers]="selectedUsers"
+          ></app-invitation-channel>
+        </div>
+        <div
+          #errorInvit
+          class="alert alert-danger h6 p-1"
+          [ngClass]="{ 'd-none': hideAlert }"
+          role="alert"
+        ></div>
+        <div class="d-flex flex-row justify-content-between align-items-center">
+          <h5>Update Topic</h5>
+          <input
+            #topic
+            type="text"
+            name="topic"
+            id="topic"
+            placeholder="New topic"
+            value=""
+          />
+        </div>
+        <div
+          *ngIf="room!.config!.scope != 'PRIVATE'"
+          class="d-flex flex-column gap-2"
+        >
+          <div
+            class="d-flex flex-row justify-content-between align-items-center"
+          >
+            <h5>Update password</h5>
+            <input
+              #password
+              type="password"
+              name="password"
+              id="password"
+              placeholder="New password"
+            />
+          </div>
+          <button
+            *ngIf="room!.config!.scope == 'PROTECTED'"
+            class="btn btn-dark"
+            (click)="onRemovePassword()"
+          >
+            Remove Password
+          </button>
+        </div>
+
+        <button
+          class="btn btn-danger"
+          (click)="onLeaveChannel()"
+          aria-label="Leave Channel"
+        >
+          Leave
+        </button>
+        <div
+          class="alert alert-danger alert-dismissible"
+          role="alert"
+          [ngClass]="{ 'd-none': hideAlertLeave }"
+        >
+          <p>Are-you sure you want to leave {{ room?.config?.name }} ?</p>
+          <button
+            type="button"
+            class="btn-close"
+            aria-label="Close"
+            (click)="onHideAlertLeave()"
+          ></button
+          ><button
+            type="button"
+            class="btn btn-danger"
+            data-bs-dismiss="alert"
+            data-bs-dismiss="modal"
+            (click)="onConfirmLeave()"
+          >
+            Confirm
+          </button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          aria-label="Dismiss"
+          (click)="onDismiss()"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="btn btn-dark"
+          data-bs-dismiss="modal"
+          (click)="onSaveUpdate()"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="modalParams"
+  tabindex="-1"
+  aria-labelledby="modalParams"
+  aria-hidden="true"
+  *ngIf="userRoom?.role != 'OWNER'"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Parameters</h4>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body d-flex flex-column justify-content-between gap-3">
+        <div class="d-flex flex-row justify-content-between align-items-center">
+          <h5>Invite Users</h5>
+          <app-invitation-channel
+            (searchEvent)="onSearchEvent($event)"
+            [selectedUsers]="selectedUsers"
+          ></app-invitation-channel>
+        </div>
+        <div
+          #errorInvit
+          class="alert alert-danger h6 p-1"
+          [ngClass]="{ 'd-none': hideAlert }"
+          role="alert"
+        ></div>
+        <div class="d-flex flex-row justify-content-between align-items-center">
+          <h5>Topic</h5>
+          <input
+            #topic
+            type="text"
+            name="topic"
+            id="topic"
+            placeholder="New topic"
+            value=""
+            disabled
+          />
+        </div>
+
+        <button
+          class="btn btn-danger"
+          (click)="onLeaveChannel()"
+          aria-label="Leave Channel"
+        >
+          Leave
+        </button>
+        <div
+          class="alert alert-danger alert-dismissible"
+          role="alert"
+          [ngClass]="{ 'd-none': hideAlertLeave }"
+        >
+          <p>Are-you sure you want to leave {{ room?.config?.name }} ?</p>
+          <button
+            type="button"
+            class="btn-close"
+            (click)="onHideAlertLeave()"
+            aria-label="Close"
+          ></button
+          ><button
+            type="button"
+            class="btn btn-danger"
+            data-bs-dismiss="alert"
+            data-bs-dismiss="modal"
+            (click)="onConfirmLeave()"
+          >
+            Confirm
+          </button>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          aria-label="Dismiss"
+          (click)="onDismiss()"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="btn btn-dark"
+          data-bs-dismiss="modal"
+          (click)="onInviteUsers()"
+        >
+          Invite
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+input {
+  padding: 0.5rem;
+  width: 190px;
+  box-sizing: border-box;
+  height: 40px;
+  display: block;
+}
+a {
+  z-index: 5;
+}
+li div {
+  position: relative;
+  width: 190px;
+  height: 40px;
+  z-index: 102 !important;
+  margin-top: -25px;
+  margin-right: -220px;
+  color: red;
+}
+
+li {
+  cursor: pointer;
+  list-style-type: none;
+  width: 190px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+  height: 40px;
+  z-index: 102 !important;
+}
+
+li:hover {
+  color: white;
+  background-color: rgb(61, 61, 61);
+}
+
+.fixed {
+  margin-top: 40px;
+  padding-left: 0;
+  position: fixed;
+  z-index: 102;
+}

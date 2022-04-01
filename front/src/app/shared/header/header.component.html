@@ -1,0 +1,138 @@
+<nav class="navbar navbar-expand-md navbar-static-top navbar-light bg-light">
+  <div class="container-fluid">
+    <nav
+      class="navbar navbar-expand-md navbar-static-top navbar-light bg-light"
+    >
+      <div class="container-fluid">
+        <app-game-status></app-game-status>
+        <button
+          #navToggle
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Play
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a
+                    [routerLink]="['/game/solo']"
+                    class="dropdown-item"
+                    href="#"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                    >Solo</a
+                  >
+                </li>
+                <li>
+                  <a
+                    [routerLink]="['/game/duel']"
+                    class="dropdown-item"
+                    href="#"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                    >Duel</a
+                  >
+                </li>
+                <li>
+                  <a
+                    [routerLink]="['/game/ranked']"
+                    class="dropdown-item"
+                    href="#"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                    >Ranked</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a
+                [routerLink]="['/watch']"
+                class="nav-link"
+                href="#"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+                >Watch</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                [routerLink]="['/chat']"
+                class="nav-link"
+                href="#"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+                >Chat</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                [routerLink]="['/rules']"
+                class="nav-link"
+                href="#"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+                >Rules</a
+              >
+            </li>
+            <li class="nav-item">
+              <app-search-user
+                (searchEvent)="onSearchEvent($event)"
+              ></app-search-user>
+            </li>
+            <li class="nav-item">
+              <a
+                [routerLink]="['']"
+                class="nav-link"
+                (click)="onLogout()"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+                ><i class="bi bi-power h4"></i
+              ></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <form class="d-flex justify-content-end">
+      <app-notification></app-notification>
+      <app-user-badge
+        [user]="user!"
+        (badgeEvent)="onClickProfile()"
+        [option]="{ nickname: false }"
+      ></app-user-badge>
+    </form>
+  </div>
+</nav>

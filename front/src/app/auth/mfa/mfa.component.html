@@ -1,0 +1,75 @@
+<div class="m-3 d-flex justify-content-center">
+  <h1>Google authenticator code</h1>
+</div>
+<div class="m-3 d-flex justify-content-center">
+  <form [formGroup]="mfaForm" (ngSubmit)="onSubmit()">
+    <input
+      formControlName="mfa1"
+      type="text"
+      class="partitionned"
+      maxlength="1"
+      pattern="[0-9]"
+      oninput="this.nextElementSibling.focus();"
+      onfocus="this.select();"
+      required
+    />
+    <input
+      formControlName="mfa2"
+      type="text"
+      class="partitionned"
+      maxlength="1"
+      pattern="[0-9]"
+      oninput="this.nextElementSibling.focus();"
+      onfocus="this.select();"
+      required
+    />
+    <input
+      formControlName="mfa3"
+      type="text"
+      class="partitionned"
+      maxlength="1"
+      pattern="[0-9]"
+      oninput="this.nextElementSibling.focus();"
+      onfocus="this.select();"
+      required
+    />
+    <input
+      formControlName="mfa4"
+      type="text"
+      class="partitionned"
+      maxlength="1"
+      pattern="[0-9]"
+      oninput="this.nextElementSibling.focus();"
+      onfocus="this.select();"
+      required
+    />
+    <input
+      formControlName="mfa5"
+      type="text"
+      class="partitionned"
+      maxlength="1"
+      pattern="[0-9]"
+      oninput="this.nextElementSibling.focus();"
+      onfocus="this.select();"
+      required
+    />
+    <input
+      formControlName="mfa6"
+      type="text"
+      class="partitionned"
+      maxlength="1"
+      pattern="[0-9]"
+      oninput="this.nextElementSibling.focus();"
+      onfocus="this.select();"
+      required
+    />
+    <div class="m-5 d-flex justify-content-center">
+      <button type="submit" [disabled]="!mfaForm.valid" class="btn btn-success">
+        Send code
+      </button>
+    </div>
+    <div *ngIf="mfaError" class="alert alert-danger justify-content-center">
+      <p>The validation code is not valid, please try again.</p>
+    </div>
+  </form>
+</div>

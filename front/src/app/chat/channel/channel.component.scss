@@ -1,0 +1,21 @@
+.channel-name a {
+  text-decoration: none;
+  cursor: pointer;
+  color: #686868;
+}
+
+.channel-name a:hover {
+  color: #c9c9c9;
+}
+#leaveAlert {
+  display: none;
+  // position: absolute;
+  // width: 50%;
+  // height: 15%;
+  // top: 0;
+  // bottom: 0;
+  // right: 0;
+  // left: 0;
+  // margin: auto;
+  // z-index: 2000;
+}

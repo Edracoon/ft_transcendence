@@ -1,0 +1,34 @@
+<div *ngIf="currentUser">
+  <button
+    *ngIf="friendState === FriendState.ACCEPT_FRIEND"
+    #btAccept
+    class="btn btn-dark m-1"
+    (click)="acceptFriend(btAccept)"
+  >
+    Accept friend
+  </button>
+  <button
+    *ngIf="friendState === FriendState.NOT_FRIEND"
+    #btAdd
+    class="btn btn-dark m-1"
+    (click)="addFriend(btAdd)"
+  >
+    Add friend
+  </button>
+  <button
+    *ngIf="friendState === FriendState.ADD_FRIEND"
+    #btCancel
+    class="btn btn-dark m-1"
+    (click)="cancelFriendAdd(btCancel)"
+  >
+    cancel friend add
+  </button>
+  <button
+    *ngIf="friendState === FriendState.FRIEND"
+    #btDel
+    class="btn btn-dark m-1"
+    (click)="delFriend(btDel)"
+  >
+    delete friends
+  </button>
+</div>

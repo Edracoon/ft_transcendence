@@ -1,0 +1,78 @@
+<app-nav></app-nav>
+<div class="blank-nav"></div>
+<div *ngIf="userRoom && !isBan()">
+  <app-loading *ngIf="!isLoaded"></app-loading>
+  <div>
+    <ul class="messages" *ngIf="isLoaded">
+      <li
+        class="d-flex justify-content-start gap-2"
+        *ngFor="let userMessage of room?.messages"
+      >
+        <div
+          class="d-flex gap-2"
+          *ngIf="isBlocked(userMessage); else elseBlock"
+        >
+          <div class="flex-shrink-0">
+            <img
+              class="avatar img-thumbnail"
+              src="assets/images/blacklist.png"
+            />
+          </div>
+          <div class="text-muted">
+            [Blocked user] <br />
+            Blocked message
+          </div>
+        </div>
+        <ng-template #elseBlock>
+          <div class="flex-shrink-0">
+            <img
+              class="avatar img-thumbnail"
+              src="{{ userMessage.user?.avatar }}"
+            />
+          </div>
+          <div class="d-flex flex-column align-items-start">
+            <div style="font-size: 0.7em">
+              {{ userMessage.date | date: "MMM d, y, h:mm a" }}
+            </div>
+            <a
+              class="nickname-link"
+              routerLink="/user/show/{{ userMessage.user?.id }}"
+              >[{{ userMessage.user?.nickname }}]
+            </a>
+            {{ userMessage.text }}
+          </div>
+        </ng-template>
+      </li>
+    </ul>
+  </div>
+  <div class="blank"></div>
+  <div class="form container navbar-static-bot">
+    <form [formGroup]="messageForm" action="" (ngSubmit)="onSubmit()">
+      <input
+        formControlName="message"
+        type="text"
+        placeholder="Send a message..."
+        [hidden]="isMute()"
+      />
+      <span [hidden]="!isMute()" class="p-2"
+        >You are muted until {{ userRoom?.mute | date: "MMM d, y, h:mm a" }}
+      </span>
+      <button type="submit" [hidden]="isMute()">Send</button>
+    </form>
+  </div>
+  <div id="LastMessage"></div>
+</div>
+<div *ngIf="userRoom && isBan()" class="alert alert-danger">
+  You are ban until {{ userRoom?.ban | date: "MMM d, y, h:mm a" }}<br />
+  <a href="#" routerLink="/chat" class="alert-link">List channels</a>
+</div>
+
+<button
+  type="button"
+  class="btn btn-floating btn-dark"
+  id="btn-scroll"
+  (click)="onScrollClick()"
+>
+  <fa-icon [icon]="scrollIconUp" *ngIf="scrollUp"></fa-icon>
+  <fa-icon [icon]="scrollIconDown" *ngIf="!scrollUp"></fa-icon>
+</button>

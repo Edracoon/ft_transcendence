@@ -1,0 +1,32 @@
+<a
+  *ngIf="user"
+  class="btn d-flex p-0 align-items-center"
+  #badge
+  (click)="onClick(badge, $event, user)"
+>
+  <button type="button" class="btn position-relative p-0 avatar">
+    <img
+      [src]="getAvatar()"
+      alt="avatar"
+      class="rounded"
+      data-bs-toggle="tooltip"
+      data-bs-placement="top"
+      title="{{ user.nickname }}"
+    />
+    <app-user-status
+      *ngIf="currentUser && isFriend()"
+      class="start-50 top-100"
+      [userId]="user.id"
+    ></app-user-status>
+  </button>
+  <h7
+    *ngIf="option.nickname"
+    class="m-0 p-0 d-inline-block text-start"
+    [ngClass]="{
+      'text-decoration-line-through': isBlocked(),
+      'text-truncate': option.truncate
+    }"
+  >
+    {{ user.nickname }}
+  </h7>
+</a>

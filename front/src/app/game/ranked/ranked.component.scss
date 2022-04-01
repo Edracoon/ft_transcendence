@@ -1,0 +1,24 @@
+.micka {
+  width: 200px !important;
+  text-align: center;
+  margin: 0 auto !important;
+}
+
+.loadingCustom {
+  position: absolute;
+  justify-content: center;
+  top: 33%;
+  width: 100%;
+}
+
+.middleMan {
+  position: absolute;
+  top: 0;
+  left: 0;
+  justify-content: center;
+  display: flex;
+  flex-flow: column;
+  min-height: 100%;
+  width: 100%;
+  z-index: -1;
+}

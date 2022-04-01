@@ -1,0 +1,35 @@
+<div class="loadingCustom">
+  <app-loading></app-loading>
+</div>
+<div *ngIf="gameService.state === 'WAITING_RANKED'" class="middleMan m-2">
+  <button
+    type="button"
+    class="btn btn-outline-danger micka"
+    (click)="OnClickLeaveMatchMaking()"
+  >
+    Cancel Matchmaking !
+  </button>
+</div>
+<div
+  *ngIf="gameService.needRefresh"
+  class="
+    d-flex
+    flex-row
+    justify-content-center
+    align-items-center
+    success-update-alert
+  "
+>
+  <div class="alert alert-warning">
+    <h5>
+      You're already logged on, log out here or on the other(s) tab(s) and click
+      <button
+        (click)="gameService.connectServiceRoom()"
+        title="Redirect to home"
+      >
+        here
+      </button>
+      to refresh the window !
+    </h5>
+  </div>
+</div>

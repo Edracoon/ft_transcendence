@@ -1,0 +1,33 @@
+<div class="d-flex mt-3">
+  <hr style="width: 20%; margin: 1em auto" />
+  <h2>Match ongoing</h2>
+  <hr style="width: 20%; margin: 1em auto" />
+</div>
+<div class="table-responsive-md container-fluid table-container mt-2">
+  <table class="table table-striped table-light table-hover table-borderless">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">Player 1</th>
+        <th scope="col">Score 1</th>
+        <th scope="col">- VS -</th>
+        <th scope="col">Score 2</th>
+        <th scope="col">Player 2</th>
+        <th scope="col">Spectator</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let room of rooms" (click)="watchRoom(room.roomId)">
+        <th scope="row">
+          <app-user-badge [user]="room.metadata.left"></app-user-badge>
+        </th>
+        <td>{{ room.metadata.Lscore }}</td>
+        <td>-</td>
+        <td>{{ room.metadata.Rscore }}</td>
+        <td>
+          <app-user-badge [user]="room.metadata.right"></app-user-badge>
+        </td>
+        <td>{{ room.metadata.spectator }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

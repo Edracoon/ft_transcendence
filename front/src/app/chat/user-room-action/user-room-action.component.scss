@@ -1,0 +1,36 @@
+.accordion-button:not(.collapsed)::after {
+  background-image: url("/assets/icons/gear-fill.svg");
+}
+.accordion-button::after {
+  background-image: url("/assets/icons/gear.svg");
+}
+
+.accordion-header :hover {
+  background-color: #e7f1ff;
+}
+
+.accUser .accordion-button:not(.collapsed)::after {
+  background-image: none;
+}
+.accUser .accordion-button::after {
+  background-image: none;
+}
+
+.accUser .accordion-header :hover {
+  background-color: white;
+}
+
+.accUser .accordion-button {
+  cursor: default;
+}
+
+.isjoin .accordion-button,
+.isjoin .accordion-button * {
+  background-color: rgb(238, 238, 238) !important;
+}
+
+.userIcon {
+  font-size: 1.2em;
+  color: rgb(85, 85, 85);
+  padding: 3px;
+}

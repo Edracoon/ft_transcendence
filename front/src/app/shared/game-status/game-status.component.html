@@ -1,0 +1,9 @@
+<a class="d-flex align-items-bottom" href="#" [routerLink]="['/home']">
+  <img [src]="getSrc()" class="d-inline-block align-text-center logo" />
+  <h5>
+    <div class="title">Infinity</div>
+    <div class="status" [ngClass]="{ load: loadStatus() }">
+      {{ getStatus() }}
+    </div>
+  </h5>
+</a>

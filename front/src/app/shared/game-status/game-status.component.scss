@@ -1,0 +1,44 @@
+a {
+  text-decoration: none;
+  margin-right: 5px;
+}
+h5 {
+  color: black;
+}
+
+.title {
+  padding-right: 15px;
+}
+
+.logo {
+  width: 90%;
+  height: 90%;
+  margin-right: 3px;
+}
+
+.status {
+  color: rgb(16, 89, 122);
+  font-size: 0.7em;
+}
+
+.load:after {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+  -webkit-animation: ellipsis steps(4, end) 900ms infinite;
+  animation: ellipsis steps(4, end) 900ms infinite;
+  content: "\2026"; /* ascii code for the ellipsis character */
+  width: 0px;
+}
+
+@keyframes ellipsis {
+  to {
+    width: 20px;
+  }
+}
+
+@-webkit-keyframes ellipsis {
+  to {
+    width: 20px;
+  }
+}

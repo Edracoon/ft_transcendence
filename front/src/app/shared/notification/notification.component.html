@@ -1,0 +1,35 @@
+<div class="btn-group">
+  <button
+    class="btn dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    <i class="bi bi-bell-fill h3"></i>
+    {{ getNbNotif() }}
+  </button>
+  <ul
+    class="dropdown-menu dropdown-menu-end"
+    style="max-height: 200px; overflow: auto"
+  >
+    <li *ngFor="let action of currentUser?.actions_received">
+      <span
+        id="actionLink"
+        [ngClass]="{ seen: !action.seen }"
+        class="dropdown-item"
+        routerLink="{{ getActionLink(action) }}"
+        (click)="onNotifClick($event, action)"
+      >
+        {{ getActionText(action) }}
+        <button
+          class="btn bi bi-x-square p-0"
+          (mouseover)="changeStyle($event)"
+          (mouseout)="changeStyle($event)"
+          (click)="onDeleteAction($event, action)"
+        ></button>
+      </span>
+    </li>
+    <li *ngIf="!currentUser?.actions_received?.length">
+      <a class="dropdown-item">0 notification</a>
+    </li>
+  </ul>
+</div>

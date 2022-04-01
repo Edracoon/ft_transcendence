@@ -1,0 +1,23 @@
+<div id="search-component" class="input-group">
+  <div class="form-outline">
+    <input
+      #searchBox
+      placeholder="search user"
+      (input)="search(searchBox.value)"
+      (focusout)="onUnfocus(searchBox)"
+      type="search"
+      class="form-control"
+    />
+  </div>
+  <ul class="list-group" [ngClass]="{ fixed: fixed }">
+    <li
+      *ngFor="let user of users$ | async"
+      class="list-group-item"
+      (click)="elmt.click()"
+    >
+      <a #elmt (click)="onClick(elmt, $event, user, searchBox)">
+        {{ user.nickname }}
+      </a>
+    </li>
+  </ul>
+</div>

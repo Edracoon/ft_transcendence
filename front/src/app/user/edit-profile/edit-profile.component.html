@@ -1,0 +1,136 @@
+<div
+  class="d-flex flex-row justify-content-center align-items-center success-update-alert"
+  *ngIf="profileUpdated === 'S'"
+>
+  <div class="alert alert-success">
+    <h3>Your profile has been updated.</h3>
+    You'll be redirect to your profile in 3sec or click
+    <a routerLink="/user/show/{{ user.id }}" title="Redirect to your profile"
+      >here</a
+    >.
+  </div>
+</div>
+<div
+  *ngIf="user && profileUpdated !== 'S'"
+  class="profile-container container mt-5 mb-5"
+>
+  <div *ngIf="profileUpdated === 'F'" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+  <form
+    class="row"
+    action=""
+    enctype="multipart/form-data"
+    [formGroup]="formGroup"
+  >
+    <div class="form-group mb-5 form-group-img">
+      <div class="d-flex flex-column">
+        <label class="btn img-btn border-0" type="file-input">
+          <img class="avatar" [attr.src]="user.avatar" alt="img" id="avatar" />
+          <i class="fas fa-plus-circle icon-add-img"></i>
+          <input
+            (change)="onFileChange($event)"
+            type="file"
+            formControlName="avatar"
+            name="file"
+            id="file"
+            accept="image/jpeg, image/jpg, image/png"
+          />
+        </label>
+        <div class="d-flex justify-content-center">
+          <button class="mt-3 btn btn-dark" (click)="onRandomAvatar()">
+            Generate random avatar
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="form-group mb-5">
+      <label for="nickInput">Nickname</label>
+      <input
+        type="text"
+        formControlName="nickname"
+        name="nickname"
+        id="nickname"
+        class="form-control"
+        id="nickInput"
+        placeholder="Nickname..."
+        maxlength="22"
+        [value]="user.nickname"
+      />
+    </div>
+
+    <div
+      class="form-group mb-5 d-flex flex-row justify-content-between align-items-center"
+    >
+      <label for="authSwitch">Two-Factor Authentification (2FA)</label>
+      <label class="switch" id="authSwitch">
+        <input
+          (change)="onMfaChange()"
+          type="checkbox"
+          formControlName="twoFA"
+          name="two-fa"
+          id="two-fa"
+          [checked]="user.setting?.mfa"
+        />
+        <span class="slider round"></span>
+      </label>
+    </div>
+
+    <div
+      *ngIf="mfaSecret"
+      class="d-flex flex-column justify-content-between gap-2"
+    >
+      <div class="d-flex flex-row gap-3 align-items-center">
+        <label for="copy-btn">Google 2FA Secret Key</label>
+        <ng-template #tooltipContent>
+          Active the Two Factor Authentification :
+          <ul>
+            <li>Download <b>Google Authentificator</b></li>
+            <li><b>Scan the QR Code</b> or enter the secret key in the app</li>
+            <li>
+              On the next connection enter the Google code in the 2FA Screen
+            </li>
+          </ul>
+        </ng-template>
+        <span
+          [ngbTooltip]="tooltipContent"
+          [closeDelay]="5000"
+          tooltipClass="tooltip"
+          container="body"
+        >
+          <i class="far fa-question-circle"></i>
+        </span>
+      </div>
+      <div
+        class="form-group mb-5 d-flex flex-row gap-2 align-items-center align-middle text-left"
+      >
+        <qrcode *ngIf="mfaSecret" [qrdata]="qrSecret"></qrcode>
+        <p class="border rounded pe-5 ps-2 pt-2 pb-2 bg-light secret-mfa">
+          {{ mfaSecret }}
+        </p>
+        <button
+          (click)="onCopySecret()"
+          id="copy-btn"
+          name="copy-btn"
+          type="button"
+          class="btn btn-dark"
+          title="Copy to clipboard"
+        >
+          Copy <span class="far fa-copy btn-icon"></span>
+        </button>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <button
+        type="button"
+        (click)="onSave()"
+        class="btn btn-dark"
+        id="saveBtn"
+      >
+        Save
+      </button>
+    </div>
+  </form>
+</div>
+
+<app-loading *ngIf="!user" [information]="'Loading...'"></app-loading>

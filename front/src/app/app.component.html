@@ -1,0 +1,5 @@
+<app-header *ngIf="isLog | async; else elseBlock"></app-header>
+<ng-template #elseBlock>
+  <app-header-login></app-header-login>
+</ng-template>
+<router-outlet></router-outlet>

@@ -1,0 +1,41 @@
+<div
+  *ngIf="leftPlayer && rightPlayer"
+  class="micka d-flex flex-column justify-content-between"
+>
+  <div class="m-3" class="d-flex flex-row justify-content-between">
+    <img
+      [src]="leftPlayer.avatar"
+      width="15%"
+      height="15%"
+      class="img-thumbnail"
+      alt="..."
+    />
+    <img
+      [src]="rightPlayer.avatar"
+      width="15%"
+      height="15%"
+      class="img-thumbnail"
+      alt="..."
+    />
+  </div>
+  <div class="d-flex flex-row justify-content-between">
+    <p>{{ leftPlayer.nickname }}</p>
+    <p>{{ rightPlayer.nickname }}</p>
+  </div>
+  <div class="d-flex flex-row justify-content-between">
+    <p>{{ leftPlayer.ladder?.points }} IP</p>
+    <p>{{ rightPlayer.ladder?.points }} IP</p>
+  </div>
+  <button
+    *ngIf="state === 'IN_RANKED' || state === 'IN_DUEL'"
+    class="btn btn-light"
+    (click)="onClickGiveUp()"
+  >
+    <fa-icon
+      [icon]="flagIcon"
+      class="icon"
+      style="color: rgb(2, 2, 2)"
+    ></fa-icon>
+    Give up !
+  </button>
+</div>

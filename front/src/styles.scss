@@ -1,0 +1,29 @@
+/* You can add global styles to this file, and also import other style files */
+// html {
+//   padding-top: 56px;
+
+// }
+
+.tooltip .tooltip-inner {
+  background-color: #2196f3 !important;
+}
+
+.modal-backdrop {
+  display: none;
+}
+
+.modal {
+  background-color: rgba(117, 117, 117, 0.5) !important;
+}
+
+// .modal-backdrop {
+//   z-index: 1 !important;
+// }
+
+// .modal {
+//   z-index: 1000 !important;
+// }
+
+hr {
+  z-index: -1;
+}

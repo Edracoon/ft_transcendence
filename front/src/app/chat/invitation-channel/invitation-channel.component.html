@@ -1,0 +1,20 @@
+<div class="container-fluid">
+  <app-search-user
+    [fixed]="fixed"
+    id="inputSearch"
+    class="d-flex justify-content-center"
+    (searchEvent)="onSearchEvent($event)"
+  ></app-search-user>
+  <div id="invitations" class="p-1">
+    <button class="btn one p-0 m-1" *ngFor="let user of selectedUsers">
+      <app-user-badge [user]="user"></app-user-badge>
+      <button
+        type="button"
+        class="btn btn-light delete"
+        (click)="onDelete(user)"
+      >
+        X
+      </button>
+    </button>
+  </div>
+</div>

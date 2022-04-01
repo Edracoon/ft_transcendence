@@ -1,0 +1,35 @@
+<div class="micka m-2">
+  <p *ngIf="gameMode === 'ranked'" class="h1 txt">Ranked match found !</p>
+  <p *ngIf="gameMode === 'duel'" class="h1 txt">Duel match ready !</p>
+  <button
+    type="button"
+    class="btn btn-outline-success"
+    (click)="OnClickAccept()"
+  >
+    Accept Game
+  </button>
+  <p></p>
+  <button
+    *ngIf="accepted == false"
+    type="button"
+    class="btn btn-outline-danger"
+    (click)="OnClickCancel()"
+  >
+    Cancel Game
+  </button>
+</div>
+
+<div
+  *ngIf="accepted == false"
+  class="container d-flex justify-content-center padding"
+>
+  <div class="row">
+    <div class="col-md-9 col-sm-6">
+      <div class="progress blue">
+        <span class="progress-left"> <span class="progress-bar"></span> </span>
+        <span class="progress-right"> <span class="progress-bar"></span> </span>
+        <div class="progress-value">{{ second }}</div>
+      </div>
+    </div>
+  </div>
+</div>

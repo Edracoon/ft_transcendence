@@ -1,0 +1,11 @@
+.middleHeight {
+  position: absolute;
+  top: 0;
+  justify-content: center;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  min-height: 100%;
+  z-index: -10;
+}

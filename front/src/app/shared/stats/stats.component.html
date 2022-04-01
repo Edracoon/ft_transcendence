@@ -1,0 +1,70 @@
+<div class="d-flex mt-3">
+  <hr style="width: 20%; margin: 1em auto" />
+  <h2>Statistics</h2>
+  <hr style="width: 20%; margin: 1em auto" />
+</div>
+<div class="d-flex flex-column gap-3 mt-3 mb-3 container">
+  <div class="row">
+    <div class="card text-center col-6">
+      <fa-icon
+        class="card-img-top"
+        [icon]="usersIcon"
+        style="font-size: 3em"
+      ></fa-icon>
+      <div class="card-body">
+        <h3 class="card-title">{{ this.ladders.length }}</h3>
+        <p class="card-text">User(s) on Infinity</p>
+      </div>
+    </div>
+    <div class="card text-center col-6">
+      <fa-icon
+        class="card-img-top"
+        [icon]="gameIcon"
+        style="font-size: 3em; color: goldenrod"
+      ></fa-icon>
+      <div class="card-body">
+        <h3 class="card-title">{{ calculTotalGamePlayed() }}</h3>
+        <p class="card-text">Game played on Infinity</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row row-cols-xs-2">
+    <div class="card text-center col-sm-4 col-xs-6">
+      <fa-icon
+        class="card-img-top"
+        [icon]="percentIcon"
+        style="font-size: 3em; color: goldenrod"
+      ></fa-icon>
+      <div class="card-body">
+        <p class="card-text">You have</p>
+        <h3 class="card-title">{{ calculPercentVictory() }}%</h3>
+        <p class="card-text">of Victories</p>
+      </div>
+    </div>
+    <div class="card text-center col-sm-4 col-xs-6">
+      <fa-icon
+        class="card-img-top"
+        [icon]="playIcon"
+        style="font-size: 3em"
+      ></fa-icon>
+      <div class="card-body">
+        <p class="card-text">You have played</p>
+        <h3 class="card-title">{{ calculGamesPlayed() }}</h3>
+        <p class="card-text">Game(s)</p>
+      </div>
+    </div>
+    <div class="card text-center col-sm-4 col-xs-12">
+      <fa-icon
+        class="card-img-top"
+        [icon]="channelsIcon"
+        style="font-size: 3em; color: lightskyblue"
+      ></fa-icon>
+      <div class="card-body">
+        <p class="card-text">You have joined</p>
+        <h3 class="card-title">{{ calculChannelsJoined() }}</h3>
+        <p class="card-text">Channel(s)</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+.slide {
+  overflow: auto;
+  margin: 0 auto;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.slide img {
+  width: 200px;
+  height: 150px;
+}
+.autom {
+  margin: auto;
+}
+
+.speed {
+  font-style: italic;
+}
+
+.gradient-background {
+  background-image: linear-gradient(45deg, #f3ec78, #af4261);
+  color: white;
+  border-radius: 2rem;
+}
+
+.gradient-text {
+  background-image: linear-gradient(45deg, #f3ec78, #af4261);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  -moz-text-fill-color: transparent;
+}
+
+.width100 {
+  width: 100%;
+}
+
+.orel {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pong {
+  margin: 0 auto;
+  width: 50%;
+  height: 35%;
+}
+
+canvas {
+  width: 100%;
+  background-color: black;
+}
+
+@media screen and (max-width: 800px) {
+  .pong {
+    margin: 0 auto;
+    width: 95%;
+    height: 35%;
+  }
+}

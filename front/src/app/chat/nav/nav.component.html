@@ -1,0 +1,208 @@
+<nav
+  class="navbar navbar-light bg-light text-align-center d-flex flex-row justify-content-between align-items-center align-middle flex-wrap"
+>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#channelsMenu"
+    aria-controls="channelsMenu"
+    aria-expanded="false"
+    aria-label="Toggle channels"
+    (click)="onOpenSideNav()"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="30"
+      height="30"
+      fill="currentColor"
+      class="bi bi-layout-text-sidebar text-dark p-0 m-1"
+      viewBox="0 0 16 16"
+    >
+      <path
+        d="M3.5 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM3 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"
+      />
+      <path
+        d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm12-1v14h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1h-2zm-1 0H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h9V1z"
+      />
+    </svg>
+  </button>
+  <div id="sideNav" class="sidenav d-flex flex-column">
+    <div class="d-flex justify-content-around">
+      <a (click)="onCloseSideNav()" class="closebtn">X</a>
+    </div>
+    <div
+      class="d-flex flex-row justify-content-around align-items-center align-middle"
+    >
+      <hr style="width: 90%; margin: 1em auto" />
+      <h4>
+        <a
+          href="#"
+          routerLink="/chat"
+          class="section-title m-2"
+          (click)="onCloseSideNav()"
+          >Channels</a
+        >
+      </h4>
+      <button class="btn btn-dark m-2" routerLink="/chat/create">
+        <fa-icon [icon]="faPlus"></fa-icon>
+      </button>
+      <hr style="width: 90%; margin: 1em auto" />
+    </div>
+    <div *ngFor="let channel of rooms">
+      <div
+        *ngIf="channel.type == 'CHANNEL' && channel.isJoin"
+        class="d-flex flex-row align-items-center"
+      >
+        <a
+          class="channel"
+          routerLink="/chat/{{ channel.id }}"
+          (click)="onCloseSideNav()"
+        >
+          <span
+            *ngIf="channel.config!.scope == 'PRIVATE'"
+            class="bi bi-shield-x"
+          ></span>
+          <span *ngIf="channel.config!.scope == 'PUBLIC'">#</span>
+          <span
+            *ngIf="channel.config!.scope == 'PROTECTED'"
+            class="bi bi-shield-lock"
+          ></span>
+          {{ channel.config!.name }}
+        </a>
+      </div>
+    </div>
+    <div
+      class="d-flex flex-row justify-content-around align-items-center align-middle"
+    >
+      <hr style="width: 90%; margin: 1em auto" />
+      <h4 class="m-1">Direct Messages</h4>
+      <button
+        type="button"
+        class="btn btn-dark m-2"
+        data-bs-toggle="modal"
+        data-bs-target="#modalPm"
+      >
+        <fa-icon [icon]="faPlus"></fa-icon>
+      </button>
+      <hr style="width: 90%; margin: 1em auto" />
+    </div>
+    <div *ngFor="let channel of rooms">
+      <div
+        *ngIf="channel.type == 'DIRECT' && channel.isJoin"
+        class="d-flex flex-row align-items-start"
+      >
+        <app-user-badge
+          class="direct"
+          *ngIf="userExist(channel)"
+          [user]="getUser(channel)"
+          [option]="{ truncate: true }"
+          (badgeEvent)="onClickDirectMessage($event)"
+          (click)="onCloseSideNav()"
+        ></app-user-badge>
+      </div>
+    </div>
+    <div>
+      <div class="d-flex flex-row blank"></div>
+    </div>
+  </div>
+  <div
+    class="d-flex flex-column navbar-brand mx-auto text-center"
+    *ngIf="!current_room || current_room.type == 'CHANNEL'"
+  >
+    <p class="title">
+      <span
+        *ngIf="current_room && current_room.config!.scope == 'PUBLIC'"
+        class=""
+        >#</span
+      ><span
+        *ngIf="current_room && current_room.config!.scope == 'PRIVATE'"
+        class="bi bi-shield-x"
+      ></span
+      ><span
+        *ngIf="current_room && current_room.config!.scope == 'PROTECTED'"
+        class="bi bi-shield-lock"
+      ></span>
+      {{ title }}
+    </p>
+
+    <div
+      class="topic"
+      *ngIf="
+        current_room &&
+        current_room.type == 'CHANNEL' &&
+        current_room.config!.topic
+      "
+    >
+      "{{ current_room.config!.topic }}"
+    </div>
+  </div>
+
+  <a
+    class="navbar-brand mx-auto"
+    *ngIf="
+      current_room && current_room.type == 'DIRECT' && userExist(current_room)
+    "
+    routerLink="/user/show/{{ getUser(current_room).id }}"
+    >{{ title }}
+  </a>
+
+  <app-user-room-action
+    *ngIf="current_room && current_room.type != 'DIRECT' && !ban"
+    class="nb-user-component"
+  ></app-user-room-action>
+  <app-parameters
+    *ngIf="current_room && current_room.type != 'DIRECT' && !ban"
+    [room]="current_room"
+    [userRoom]="current_user_room!"
+    class="params-component"
+  ></app-parameters>
+</nav>
+<div
+  class="modal fade"
+  id="modalPm"
+  tabindex="-1"
+  aria-labelledby="modalPm"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Send direct message to a user</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="onCloseSideNav()"
+        ></button>
+      </div>
+      <div class="modal-body d-flex flex-column justify-content-between gap-3">
+        <app-invitation-channel
+          (searchEvent)="onSearchEvent($event)"
+          [selectedUsers]="selectedUser"
+        ></app-invitation-channel>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          aria-label="Dismiss"
+          (click)="onCloseSideNav()"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="btn btn-success"
+          data-bs-dismiss="modal"
+          aria-label="Dismiss"
+          (click)="onSend()"
+        >
+          Open Chat
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

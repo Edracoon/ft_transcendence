@@ -1,0 +1,18 @@
+#invitations .one {
+  border: 1px solid rgb(161, 161, 161);
+}
+#invitations .one:hover {
+  border: 1px solid rgb(133, 133, 133);
+}
+
+#invitations .delete:hover {
+  background-color: rgb(148, 148, 148);
+}
+
+#invitations {
+  text-align: center;
+}
+
+.up {
+  float: right;
+}

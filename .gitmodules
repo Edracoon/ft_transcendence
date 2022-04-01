@@ -1,6 +1,0 @@
-[submodule "infinity"]
-	path = infinity
-	url = git@github.com:Mickael-Lokhate/infinity.git
-[submodule "api_infinity"]
-	path = api_infinity
-	url = git@github.com:Mickael-Lokhate/api_infinity.git
